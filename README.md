@@ -1,4 +1,4 @@
-# TinyCORS
+# 🚧 TinyCORS (WIP) 🚧
 
 A tiny CORS Anywhere proxy made with Go.
 
@@ -42,4 +42,5 @@ docker run --rm --name tinycors -p 3000:3000 mdworld/tinycors
 * add header
 * add includelist
 * change /?url=x to /x
+* publish on Docker Hub
 * pass port flag to docker container
