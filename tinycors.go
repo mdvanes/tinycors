@@ -20,13 +20,15 @@ func main() {
 	flag.Parse()
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+    enableCors(&w)
+    
 		queryUrl := r.URL.Query().Get("url")
 		if queryUrl == "" {
 			respondWithErr(w, "empty url")
 			return
 		}
 
-		resp, err := http.Get(queryUrl)
+    resp, err := http.Get(queryUrl)
 
 		if err != nil {
 			respondWithErr(w, err.Error())
@@ -55,6 +57,11 @@ func main() {
 	if err := http.ListenAndServe(":" + *port, nil); err != nil {
 		log.Fatal()
 	}
+}
+
+func enableCors(w *http.ResponseWriter) {
+  (*w).Header().Set("Access-Control-Allow-Origin", "*")
+  (*w).Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
 }
 
 func respondWithErr(w http.ResponseWriter, err string) {

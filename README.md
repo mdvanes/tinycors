@@ -39,8 +39,8 @@ docker run --rm --name tinycors -p 3000:3000 mdworld/tinycors
 
 ## TODO
 
-* add header
 * add includelist
-* change /?url=x to /x
+* change /?url=x to /x -> do not rewrite /http://x to /http:/x
 * publish on Docker Hub
 * pass port flag to docker container
+* show documentation on localhost:3000/ ?
