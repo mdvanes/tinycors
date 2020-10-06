@@ -9,14 +9,14 @@ import (
 )
 
 const (
-	address = ":9009"
+	defaultPort = "3000"
 )
 
 func ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	var addr = flag.String("addr", address, "the address of the application")
+	var port = flag.String("port", defaultPort, "the port of the server")
 	flag.Parse()
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -51,8 +51,8 @@ func main() {
 
 	})
 
-	log.Println("Starting web server on ", *addr)
-	if err := http.ListenAndServe(*addr, nil); err != nil {
+	log.Println("Starting TinyCORS server on", *port)
+	if err := http.ListenAndServe(":" + *port, nil); err != nil {
 		log.Fatal()
 	}
 }
