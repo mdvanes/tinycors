@@ -1,4 +1,4 @@
-# 🚧 TinyCORS (WIP) 🚧
+# TinyCORS 🌱
 
 A tiny CORS Anywhere proxy made with Go.
 
@@ -48,6 +48,5 @@ TODO...
 ## TODO
 
 * Change `/?get=x` to `/x` -> do not rewrite `/http://x` to `/http:/x`, could use `r.URL.EscapedPath()` and split after the protocol and inject `//`
-* publish on Docker Hub
 * Show documentation on localhost:3000/ ?
 * Reduce size below 7 MB
