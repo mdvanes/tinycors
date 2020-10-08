@@ -32,8 +32,14 @@ or build first:
 
 ### Docker
 
+```
 docker build -t mdworld/tinycors .
 docker run --rm --name tinycors -p 3000:3000 mdworld/tinycors
+```
+
+or with optional flags:
+
+`docker run --rm --name tinycors -p 9009:9009 mdworld/tinycors -port 9009 -origins http://localhost:3000`
 
 ### Docker Compose
 
