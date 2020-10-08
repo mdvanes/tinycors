@@ -8,6 +8,7 @@ import (
   "net/http"
   "reflect"
   "errors"
+  "html"
 )
 
 const (
@@ -47,9 +48,9 @@ func main() {
       return
     }
 
-		queryUrl := r.URL.Query().Get("url")
+		queryUrl := r.URL.Query().Get("get")
 		if queryUrl == "" {
-			respondWithErr(w, "empty url")
+			respondWithErr(w, "query param \"get\" is not set in " + r.URL.EscapedPath())
 			return
 		}
 
@@ -80,17 +81,12 @@ func main() {
 
 	log.Println("Starting TinyCORS server on", *port)
 	if err := http.ListenAndServe(":" + *port, nil); err != nil {
-		log.Fatal()
+		log.Fatal("Failed to start TinyCORS server, port in use?")
 	}
 }
 
 func itemExists(arrayType interface{}, item interface{}) bool {
 	arr := reflect.ValueOf(arrayType)
-
-  // TODO
-	// if arr.Kind() != reflect.Array {
-	// 	panic("Invalid data-type")
-	// }
 
 	for i := 0; i < arr.Len(); i++ {
 		if arr.Index(i).Interface() == item {
@@ -117,7 +113,8 @@ func checkOrigin(w http.ResponseWriter, origin string) error {
 }
 
 func respondWithErr(w http.ResponseWriter, err string) {
-	w.WriteHeader(http.StatusInternalServerError)
-	log.Println("some error", err)
-	// _, _ = w.Write([]byte(fmt.Sprintf(fmt.Sprintf(`{"err":"%v"}`, err))) // TODO fix
+	log.Println("Error:", err)
+  w.Header().Set("Content-Type", "application/json")
+  w.WriteHeader(http.StatusBadRequest)
+  _, _ = w.Write([]byte(fmt.Sprintf(`{"error":"%v"}`, html.EscapeString(err))))
 }
