@@ -11,19 +11,19 @@ All requests to this proxy are allowed with this header: `Access-Control-Allow-O
 The most popular [CORS Anywhere image](https://hub.docker.com/r/imjacobclark/cors-container/tags) (500k+ downloads at time of writing), uses the `node:10-stretch` image making it 337MB big, which is a lot for what it does.
 One of the smaller ones just uses an [Nginx configuration](https://hub.docker.com/r/shakyshane/nginx-cors) and is 17MB.
 
-This one uses Go (which compiles to a binary) and is an excellent candidate for [multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build/). The result is an image of just 12MB!
+This one uses Go (which compiles to a binary) and is an excellent candidate for [multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build/). The result is an image of just ~12MB!
 
 ## Usage
 
-When running on the default port, e.g. go to http://localhost:3000/?url=https://www.mdworld.nl
+When running on the default port, e.g. go to http://localhost:3000/?get=https://www.mdworld.nl
 
 ### Go
 
 `go run tinycors.go`
 
-or with optional port flag:
+or with optional flags:
 
-`go run tinycors.go -port 9000`
+`go run tinycors.go -port 9009 -origins http://localhost:3000`
 
 or build first:
 
@@ -37,10 +37,12 @@ docker run --rm --name tinycors -p 3000:3000 mdworld/tinycors
 
 ### Docker Compose
 
+TODO...
+
 ## TODO
 
-* add includelist
-* change /?url=x to /x -> do not rewrite /http://x to /http:/x
+* Change `/?get=x` to `/x` -> do not rewrite `/http://x` to `/http:/x`, could use `r.URL.EscapedPath()` and split after the protocol and inject `//`
 * publish on Docker Hub
 * pass port flag to docker container
-* show documentation on localhost:3000/ ?
+* Show documentation on localhost:3000/ ?
+* Reduce size below 7 MB
