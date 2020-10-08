@@ -49,6 +49,5 @@ TODO...
 
 * Change `/?get=x` to `/x` -> do not rewrite `/http://x` to `/http:/x`, could use `r.URL.EscapedPath()` and split after the protocol and inject `//`
 * publish on Docker Hub
-* pass port flag to docker container
 * Show documentation on localhost:3000/ ?
 * Reduce size below 7 MB

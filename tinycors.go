@@ -37,7 +37,7 @@ func main() {
   var port = flag.String("port", defaultPort, "the port of the server")
   flag.Var(&allowedOrigins, "origins", "allowed origins, e.g. -origins http://localhost:3000 -origins http://localhost:8080")
   flag.Parse()
-  fmt.Printf("Allowed origins: %+q\n", allowedOrigins) // TODO
+  log.Printf("Allowed origins: %+q\n", allowedOrigins)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
     enableCors(&w)
