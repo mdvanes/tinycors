@@ -20,10 +20,12 @@ func ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 type arrayOrigins []string
 
+// TODO needed?
 func (i *arrayOrigins) String() string {
   return "my string representation"
 }
 
+// TODO needed?
 func (i *arrayOrigins) Set(value string) error {
   *i = append(*i, value)
   return nil
@@ -35,7 +37,7 @@ func main() {
   var port = flag.String("port", defaultPort, "the port of the server")
   flag.Var(&allowedOrigins, "origins", "allowed origins, e.g. -origins http://localhost:3000 -origins http://localhost:8080")
   flag.Parse()
-  fmt.Printf("origins: %+q\n", allowedOrigins)
+  fmt.Printf("Allowed origins: %+q\n", allowedOrigins) // TODO
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
     enableCors(&w)
@@ -105,9 +107,9 @@ func enableCors(w *http.ResponseWriter) {
 // If supplied originIncludeList is set use that, otherwise allow everything
 func checkOrigin(w http.ResponseWriter, origin string) error {
   if len(allowedOrigins) > 0 && !itemExists(allowedOrigins, origin) {
-    log.Println("origin", origin, "is not in includelist")
-    w.WriteHeader(http.StatusForbidden)
-    return errors.New("origin is not in includelist")
+    msg := "origin \"" + origin + "\" is not in includelist"
+    // TODO should return 403 in respondWIthErr = w.WriteHeader(http.StatusForbidden)
+    return errors.New(msg)
   }
   return nil
 }
@@ -116,5 +118,6 @@ func respondWithErr(w http.ResponseWriter, err string) {
 	log.Println("Error:", err)
   w.Header().Set("Content-Type", "application/json")
   w.WriteHeader(http.StatusBadRequest)
+  // TODO escape " to something readable, instead of html entity
   _, _ = w.Write([]byte(fmt.Sprintf(`{"error":"%v"}`, html.EscapeString(err))))
 }

@@ -8,4 +8,4 @@ RUN cd /src && go build -o tinycors
 FROM alpine
 WORKDIR /app
 COPY --from=build-env /src/tinycors /app/
-ENTRYPOINT ./tinycors
+ENTRYPOINT ["./tinycors"]
