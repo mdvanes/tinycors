@@ -43,10 +43,25 @@ or with optional flags:
 
 ### Docker Compose
 
-TODO...
+// TODO test docker compose
+
+Example docker-compose.yml:
+
+```
+version: '3.8'
+services:
+    tinycors:
+        ports:
+            - "9009:9009"
+        args:
+            port: 9009
+            origins: http://localhost:3000
+        image: mdworld/tinycors
+        container_name: tinycors
+```
 
 ## TODO
 
 * Change `/?get=x` to `/x` -> do not rewrite `/http://x` to `/http:/x`, could use `r.URL.EscapedPath()` and split after the protocol and inject `//`
 * Show documentation on localhost:3000/ ?
-* Reduce size below 7 MB
+* Reduce size below 7 MB (locally it shows 12.MB with `docker images | grep tinycors` but it shows 6MB on hub.docker.com)
