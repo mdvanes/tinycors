@@ -81,7 +81,7 @@ func main() {
 
 	})
 
-	log.Println("Starting TinyCORS server on", *port)
+	log.Println("Starting TinyCORS 🌱 server on", *port)
 	if err := http.ListenAndServe(":" + *port, nil); err != nil {
 		log.Fatal("Failed to start TinyCORS server, port in use?")
 	}
