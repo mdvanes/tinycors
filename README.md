@@ -43,8 +43,6 @@ or with optional flags:
 
 ### Docker Compose
 
-// TODO test docker compose
-
 Example docker-compose.yml:
 
 ```
@@ -53,9 +51,7 @@ services:
     tinycors:
         ports:
             - "9009:9009"
-        args:
-            port: 9009
-            origins: http://localhost:3000
+        command: -port 9009 -origins http://localhost:3000
         image: mdworld/tinycors
         container_name: tinycors
 ```
