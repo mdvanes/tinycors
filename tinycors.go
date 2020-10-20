@@ -45,8 +45,7 @@ func main() {
 		origin := r.Header.Get("origin")
 
 		if len(r.URL.Query()) == 0 {
-			log.Println("FOOBAR")
-			respondWithErr(w, "Hier uw documentatie")
+			respondWithDocumentation(w, r)
 			return
 		}
 
@@ -118,6 +117,19 @@ func checkOrigin(w http.ResponseWriter, origin string) error {
 		return errors.New(msg)
 	}
 	return nil
+}
+
+// Show documention when nothing is added to the path
+func respondWithDocumentation(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	_, _ = w.Write([]byte(fmt.Sprintf(`Welcome to TinyCORS 🌱
+
+You are seeing this message because you did not provide the "get" query parameter.
+
+A valid example URL would be: http://%v/?get=https://www.mdworld.nl
+
+For more info see: https://github.com/mdvanes/tinycors
+`, r.Host)))
 }
 
 func respondWithErr(w http.ResponseWriter, err string) {

@@ -59,5 +59,4 @@ services:
 ## TODO
 
 * Change `/?get=x` to `/x` -> do not rewrite `/http://x` to `/http:/x`, could use `r.URL.EscapedPath()` and split after the protocol and inject `//`
-* Show documentation on localhost:3000/ ?
 * Reduce size below 7 MB (locally it shows 12.MB with `docker images | grep tinycors` but it shows 6MB on hub.docker.com)
